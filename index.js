@@ -16,6 +16,7 @@ const client = new MongoClient(uri, {
 app.post("/checkauthorization/", async (req, res) => {
   await client.connect();
 
+  console.log(req.body);
   const username = req.body.username;
 
   const collection = client.db("users").collection("users");

@@ -1,6 +1,9 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const app = express();
+
+var jsonParser = bodyParser.json();
 
 const uri =
   "mongodb+srv://admin:haslo1@cluster0.wtsvqmh.mongodb.net/?retryWrites=true&w=majority";
@@ -13,7 +16,7 @@ const client = new MongoClient(uri, {
   },
 });
 
-app.post("/checkauthorization/", async (req, res) => {
+app.post("/checkauthorization/", jsonParser, async (req, res) => {
   await client.connect();
 
   console.log(req.body);

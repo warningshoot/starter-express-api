@@ -13,10 +13,10 @@ const client = new MongoClient(uri, {
   },
 });
 
-app.get("/checkauthorization/:username", async (req, res) => {
+app.post("/checkauthorization/", async (req, res) => {
   await client.connect();
 
-  const username = req.params.username;
+  const username = req.body.username;
 
   const collection = client.db("users").collection("users");
 

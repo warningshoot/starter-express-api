@@ -19,7 +19,6 @@ const client = new MongoClient(uri, {
 app.post("/checkauthorization/", jsonParser, async (req, res) => {
   await client.connect();
 
-  console.log(req.body);
   const username = req.body.username;
 
   const collection = client.db("users").collection("users");
@@ -28,9 +27,11 @@ app.post("/checkauthorization/", jsonParser, async (req, res) => {
 
   const user = await collection.findOne(query);
 
-  await client.close();
+  if (user == null) {
+    return res.status(400).send("Bad");
+  }
 
-  return res.json(user);
+  return res.status(200).send("Ok");
 });
 
 app.get("/adduser/:username", async (req, res) => {

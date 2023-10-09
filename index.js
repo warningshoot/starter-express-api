@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const app = express();
@@ -15,6 +16,8 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
+
+app.use(cors());
 
 app.post("/checkauthorization/", jsonParser, async (req, res) => {
   await client.connect();
